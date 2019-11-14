@@ -1,58 +1,43 @@
-import React, { Component } from "react";
-import SwapiService from "../services/SwapiService";
+import React, { Component } from 'react';
+import SwapiService from '../services/SwapiService';
+import ErrorIndicator from './ErrorIndicatior';
+import { PlanetView } from './PlanetView';
+import Spinner from './Spinner';
 
 class RandomPlanet extends Component {
   service = new SwapiService();
 
   state = {
-    id: null,
-    name: null,
-    rotationPeriod: null,
-    population: null,
-    diameter: null,
-    climate: null
+    planet: {},
+    loading: true,
+    error: false
   };
 
   componentDidMount() {
     this.updatePlanet();
   }
 
+  handleError = error => {
+    this.setState({ error: true, loading: false });
+  };
+
   updatePlanet = () => {
-    const id = Math.floor(Math.random() * 25) + 2;
-    this.service.getPlanetById(id).then(res =>
-      this.setState({
-        id,
-        name: res.name,
-        population: res.population,
-        rotationPeriod: res.rotation_period,
-        diameter: res.diameter,
-        climate: res.climate
-      })
-    );
+    const id = Math.floor(Math.random() * 20) + 3;
+    this.service
+      .getPlanetById(12313213)
+      .then(planet => this.setState({ planet, loading: false }))
+      .catch(this.handleError);
   };
 
   render() {
-    const {
-      name,
-      population,
-      rotationPeriod,
-      diameter,
-      climate,
-      id
-    } = this.state;
+    const { planet, loading, error } = this.state;
+    const hasData = !(error || loading);
     return (
-      <div className="jumbotron row">
-        <img
-          src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
-          alt={name}
-          className="col-md-4"
-        />
-        <div className="col-md-8">
-          <h5 className="display-4">{name}</h5>
-          <span className="d-block">rotation period: {rotationPeriod}</span>
-          <span className="d-block">population: {population}</span>
-          <span className="d-block">diameter: {diameter}</span>
-          <span className="d-block">climate: {climate}</span>
+      <div className='jumbotron mt-3'>
+        <div className='row'>
+          {error && <ErrorIndicator />}
+          {loading && <Spinner />}
+          {hasData && <PlanetView planet={planet} />}
         </div>
       </div>
     );

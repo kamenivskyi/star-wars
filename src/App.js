@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import Navbar from "./components/Navbar";
-import SwapiService from "./services/SwapiService";
-import RandomPlanet from "./components/RandomPlanet";
-import "./App.css";
+import React, { Component } from 'react';
+import Navbar from './components/Navbar';
+import SwapiService from './services/SwapiService';
+import RandomPlanet from './components/RandomPlanet';
+import './App.css';
 
 class App extends Component {
   // service = new SwapiService();
@@ -11,8 +11,8 @@ class App extends Component {
   // }
   render() {
     return (
-      <div className="App">
-        <div className="container">
+      <div className='App'>
+        <div className='container'>
           <Navbar />
           <RandomPlanet />
         </div>
