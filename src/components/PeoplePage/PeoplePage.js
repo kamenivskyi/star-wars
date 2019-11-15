@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import ItemList from '../ItemList';
-import PersonDetails from '../PersonDetails';
+import ItemDetails from '../ItemDetails';
 import Row from '../Row';
+import ErrorBoundry from '../ErrorBoundry';
 import './PeoplePage.css';
 
 class PeoplePage extends Component {
   state = {
-    selectedPerson: 4
+    selectedPerson: 11
   };
   onPersonSelected = id => {
     this.setState({ selectedPerson: id });
@@ -17,14 +18,22 @@ class PeoplePage extends Component {
     const renderItem = item => `${item.name} (${item.birthYear})`;
 
     const itemList = (
-      <ItemList
-        onItemSelected={this.onPersonSelected}
-        getData={this.props.getData}
-      >
-        {renderItem}
-      </ItemList>
+      <ErrorBoundry>
+        <ItemList
+          onItemSelected={this.onPersonSelected}
+          getData={this.props.getData}
+        >
+          {renderItem}
+        </ItemList>
+      </ErrorBoundry>
     );
-    const personDetails = <PersonDetails personId={selectedPerson} />;
+
+    const personDetails = (
+      <ErrorBoundry>
+        <ItemDetails itemId={selectedPerson} />
+      </ErrorBoundry>
+    );
+
     return <Row left={itemList} right={personDetails} />;
   }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ItemList from '../ItemList';
-import PersonDetails from '../PersonDetails';
+import ItemDetails from '../ItemDetails';
 
 class PlanetsPage extends Component {
   state = {
@@ -20,7 +20,7 @@ class PlanetsPage extends Component {
           getData={this.props.getData}
           renderItem={item => item.name}
         />
-        <PersonDetails personId={selectedPlanet} />
+        <ItemDetails personId={selectedPlanet} />
       </div>
     );
   }

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Spinner from './Spinner';
 import SwapiService from '../services/SwapiService';
 
-class PersonDetails extends Component {
+class ItemDetails extends Component {
   state = {
-    person: {}
+    item: {}
   };
   service = new SwapiService();
 
@@ -12,21 +12,21 @@ class PersonDetails extends Component {
     this.updatePerson();
   }
   componentDidUpdate(prevProps) {
-    if (this.props.personId !== prevProps.personId) {
+    if (this.props.itemId !== prevProps.itemId) {
       this.updatePerson();
     }
   }
 
   updatePerson = () => {
-    if (!this.props.personId) return;
+    if (!this.props.itemId) return;
     this.service
-      .getPersonById(this.props.personId)
-      .then(person => this.setState({ person }));
+      .getPersonById(this.props.itemId)
+      .then(item => this.setState({ item }));
   };
 
   render() {
-    const { name, gender, mass, birthYear, eyeColor, id } = this.state.person;
-    if (!this.state.person) return <div>Select a person from list</div>;
+    const { name, gender, mass, birthYear, eyeColor, id } = this.state.item;
+    if (!this.state.item) return <div>Select a person from list</div>;
     return (
       <div className='jumbotron'>
         <div className='row'>
@@ -48,4 +48,4 @@ class PersonDetails extends Component {
   }
 }
 
-export default PersonDetails;
+export default ItemDetails;
