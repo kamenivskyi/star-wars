@@ -3,9 +3,11 @@ import ItemList from '../ItemList';
 import ItemDetails from '../ItemDetails';
 import Row from '../Row';
 import ErrorBoundry from '../ErrorBoundry';
+import SwapiService from '../../services/SwapiService';
 import './PeoplePage.css';
 
 class PeoplePage extends Component {
+  swapi = new SwapiService();
   state = {
     selectedPerson: 11
   };

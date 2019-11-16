@@ -1,34 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import SwapiService from '../services/SwapiService';
-import Spinner from './Spinner';
-import ErrorIndicatior from './ErrorIndicatior';
+import { withData } from '../components/HOCHelpers';
 
-class ItemList extends Component {
-  state = {
-    items: [],
-    loading: true,
-    error: false
-  };
-  componentDidMount() {
-    const { getData } = this.props;
-    getData()
-      .then(items => this.setState({ items, loading: false }))
-      .catch(this.handleError);
-  }
+const { getAllPeople } = new SwapiService();
 
-  handleError = error => {
-    this.setState({ error: true, loading: false });
-  };
+const ItemList = props => {
+  const { onItemSelected, data, children } = props;
 
-  renderItems = array => {
+  const renderItems = array => {
     return array.map(item => {
-      const { id } = item;
-      const label = this.props.children(item);
+      const label = children(item);
       return (
         <li
           className='list-group-item'
-          key={id}
-          onClick={() => this.props.onItemSelected(id)}
+          key={item.id}
+          onClick={() => onItemSelected(item.id)}
         >
           {label}
         </li>
@@ -36,17 +22,7 @@ class ItemList extends Component {
     });
   };
 
-  render() {
-    const { items, loading, error } = this.state;
-    const hasData = !(loading || error);
-    if (loading) return <Spinner />;
-    return (
-      <>
-        {error && <ErrorIndicatior />}
-        {hasData && <ul className='list-group'>{this.renderItems(items)}</ul>}
-      </>
-    );
-  }
-}
+  return <ul>{renderItems(data)}</ul>;
+};
 
-export default ItemList;
+export default withData(ItemList, getAllPeople);

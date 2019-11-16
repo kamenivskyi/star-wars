@@ -2,9 +2,20 @@ import React, { Component } from 'react';
 import Spinner from './Spinner';
 import SwapiService from '../services/SwapiService';
 
+const Record = ({ item, field, label }) => {
+  return (
+    <li className='list-group-item'>
+      <span>{label}</span>
+      <span>{item[field]}</span>
+    </li>
+  );
+};
+export { Record };
+
 class ItemDetails extends Component {
   state = {
     item: {},
+    fields: [],
     image: null
   };
   service = new SwapiService();
@@ -19,7 +30,7 @@ class ItemDetails extends Component {
   }
 
   updateItem = () => {
-    const { itemId, getData, getImageUrl } = this.props;
+    const { itemId, getData, getImageUrl, fields } = this.props;
     if (!itemId) return;
 
     getData(itemId).then(item =>
@@ -29,18 +40,15 @@ class ItemDetails extends Component {
 
   render() {
     const { item, image } = this.state;
-    const { name, gender, mass, birthYear, eyeColor, id } = this.state.item;
     if (!item) return <div>Select an item from the list</div>;
     return (
       <div className='jumbotron'>
         <div className='row'>
-          <img src={image} alt={name} className='col-md-5' />
+          <img src={image} alt='item image' className='col-md-5' />
           <ul className='list-group col-md-7'>
-            <li className='list-group-item'>{name}</li>
-            <li className='list-group-item'>Gender: {gender}</li>
-            <li className='list-group-item'>Mass: {mass}</li>
-            <li className='list-group-item'>Eye color: {eyeColor}</li>
-            <li className='list-group-item'>Birth year: {birthYear}</li>
+            {React.Children.map(this.props.children, child => {
+              return React.cloneElement(child, { item });
+            })}
           </ul>
         </div>
       </div>
