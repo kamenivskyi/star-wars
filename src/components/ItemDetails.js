@@ -4,37 +4,37 @@ import SwapiService from '../services/SwapiService';
 
 class ItemDetails extends Component {
   state = {
-    item: {}
+    item: {},
+    image: null
   };
   service = new SwapiService();
 
   componentDidMount() {
-    this.updatePerson();
+    this.updateItem();
   }
   componentDidUpdate(prevProps) {
     if (this.props.itemId !== prevProps.itemId) {
-      this.updatePerson();
+      this.updateItem();
     }
   }
 
-  updatePerson = () => {
-    if (!this.props.itemId) return;
-    this.service
-      .getPersonById(this.props.itemId)
-      .then(item => this.setState({ item }));
+  updateItem = () => {
+    const { itemId, getData, getImageUrl } = this.props;
+    if (!itemId) return;
+
+    getData(itemId).then(item =>
+      this.setState({ item, image: getImageUrl(item) })
+    );
   };
 
   render() {
+    const { item, image } = this.state;
     const { name, gender, mass, birthYear, eyeColor, id } = this.state.item;
-    if (!this.state.item) return <div>Select a person from list</div>;
+    if (!item) return <div>Select an item from the list</div>;
     return (
       <div className='jumbotron'>
         <div className='row'>
-          <img
-            src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
-            alt={name}
-            className='col-md-5'
-          />
+          <img src={image} alt={name} className='col-md-5' />
           <ul className='list-group col-md-7'>
             <li className='list-group-item'>{name}</li>
             <li className='list-group-item'>Gender: {gender}</li>
