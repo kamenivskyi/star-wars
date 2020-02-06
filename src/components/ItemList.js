@@ -1,28 +1,27 @@
 import React from 'react';
-import SwapiService from '../services/SwapiService';
-import { withData } from '../components/HOCHelpers';
-
-const { getAllPeople } = new SwapiService();
 
 const ItemList = props => {
-  const { onItemSelected, data, children } = props;
+  const { onItemSelected, data, children: renderLabel } = props;
 
-  const renderItems = array => {
-    return array.map(item => {
-      const label = children(item);
-      return (
-        <li
-          className='list-group-item'
-          key={item.id}
-          onClick={() => onItemSelected(item.id)}
-        >
-          {label}
-        </li>
-      );
-    });
-  };
+  console.log(props);
 
-  return <ul>{renderItems(data)}</ul>;
+  const renderItems = data.map(item => {
+    const { id } = item;
+
+    const label = renderLabel(item);
+
+    return (
+      <li
+        className='list-group-item'
+        key={id}
+        onClick={() => onItemSelected(id)}
+      >
+        {label}
+      </li>
+    );
+  });
+
+  return <ul className='list-group'>{renderItems}</ul>;
 };
 
-export default withData(ItemList, getAllPeople);
+export default ItemList;

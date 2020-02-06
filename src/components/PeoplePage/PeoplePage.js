@@ -8,15 +8,18 @@ import './PeoplePage.css';
 
 class PeoplePage extends Component {
   swapi = new SwapiService();
+
   state = {
     selectedPerson: 11
   };
+
   onPersonSelected = id => {
     this.setState({ selectedPerson: id });
   };
 
   render() {
     const { selectedPerson } = this.state;
+
     const renderItem = item => `${item.name} (${item.birthYear})`;
 
     const itemList = (

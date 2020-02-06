@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Spinner from './Spinner';
 import SwapiService from '../services/SwapiService';
 
-const Record = ({ item, field, label }) => {
+export const Record = ({ item, field, label }) => {
   return (
     <li className='list-group-item'>
       <span>{label}</span>
@@ -10,7 +10,6 @@ const Record = ({ item, field, label }) => {
     </li>
   );
 };
-export { Record };
 
 class ItemDetails extends Component {
   state = {
@@ -30,7 +29,8 @@ class ItemDetails extends Component {
   }
 
   updateItem = () => {
-    const { itemId, getData, getImageUrl, fields } = this.props;
+    const { itemId, getData, getImageUrl } = this.props;
+
     if (!itemId) return;
 
     getData(itemId).then(item =>
@@ -40,7 +40,9 @@ class ItemDetails extends Component {
 
   render() {
     const { item, image } = this.state;
+
     if (!item) return <div>Select an item from the list</div>;
+
     return (
       <div className='jumbotron'>
         <div className='row'>

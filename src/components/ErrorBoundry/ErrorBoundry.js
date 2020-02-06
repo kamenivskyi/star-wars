@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ErrorIndicatior from './ErrorIndicatior';
+import ErrorIndicatior from '../ErrorIndicatior';
 
 class ErrorBoundry extends Component {
   state = {

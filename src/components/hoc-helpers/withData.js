@@ -5,7 +5,7 @@ import ErrorIndicatior from '../ErrorIndicatior';
 const withData = (ViewComponent, getData) => {
   return class extends Component {
     state = {
-      data: [],
+      data: null,
       loading: true,
       error: false
     };
@@ -23,6 +23,7 @@ const withData = (ViewComponent, getData) => {
     render() {
       const { data, loading, error } = this.state;
       const hasData = !(loading || error);
+
       if (loading) return <Spinner />;
       if (error) return <ErrorIndicatior />;
       if (hasData) return <ViewComponent {...this.props} data={data} />;
