@@ -8,6 +8,7 @@ import ItemList from './components/ItemList';
 import ErrorBoundry from './components/ErrorBoundry';
 import Row from './components/Row';
 import ItemDetails, { Record } from './components/ItemDetails';
+import { SwapiServiceProvider } from './context/swapi-service-context/swapi-service-context';
 import {
   PersonList,
   PlanetList,
@@ -36,29 +37,30 @@ class App extends Component {
 
     return (
       <ErrorBoundry>
-        <div className='App'>
-          <div className='container'>
-            <Navbar />
+        <SwapiServiceProvider value={this.service}>
+          <div className='App'>
+            <div className='container'>
+              <Navbar />
 
-            <PersonList>
+              {/* <PersonList>
               {({ name, birthYear }) => (
                 <span>
                   {name} ({birthYear})
                 </span>
               )}
-            </PersonList>
+            </PersonList> old -> without withChildFunction HOC*/}
 
-            <PlanetList>{({ name }) => <span>{name}</span>}</PlanetList>
+              <Row left={<PersonList />} right={<PersonDetails itemId={4} />} />
 
-            <StarshipList>{({ name }) => <span>{name}</span>}</StarshipList>
+              <Row left={<PlanetList />} right={<PlanetDetails itemId={2} />} />
 
-            <PersonDetails itemId={4} />
-
-            <StarshipDetails itemId={3} />
-
-            <PlanetDetails itemId={2} />
+              <Row
+                left={<StarshipList />}
+                right={<StarshipDetails itemId={3} />}
+              />
+            </div>
           </div>
-        </div>
+        </SwapiServiceProvider>
       </ErrorBoundry>
     );
   }
