@@ -11,11 +11,11 @@ import { SwapiServiceConsumer } from '../../context/swapi-service-context/swapi-
 
 const StarshipDetails = ({ itemId }) => (
   <SwapiServiceConsumer>
-    {({ getStarshipById, getStarshipImage }) => {
+    {({ getStarship, getStarshipImage }) => {
       return (
         <ItemDetails
           itemId={itemId}
-          getData={getStarshipById}
+          getData={getStarship}
           getImageUrl={getStarshipImage}
         >
           <Record field='model' label='Model: ' />
@@ -29,11 +29,11 @@ const StarshipDetails = ({ itemId }) => (
 
 const PlanetDetails = ({ itemId }) => (
   <SwapiServiceConsumer>
-    {({ getPlanetById, getPlanetImage }) => {
+    {({ getPlanet, getPlanetImage }) => {
       return (
         <ItemDetails
           itemId={itemId}
-          getData={getPlanetById}
+          getData={getPlanet}
           getImageUrl={getPlanetImage}
         >
           <Record field='population' label='Population: ' />
@@ -47,10 +47,10 @@ const PlanetDetails = ({ itemId }) => (
 
 const PersonDetails = ({ itemId }) => (
   <SwapiServiceConsumer>
-    {({ getPersonById, getPersonImage }) => (
+    {({ getPerson, getPersonImage }) => (
       <ItemDetails
         itemId={itemId}
-        getData={getPersonById}
+        getData={getPerson}
         getImageUrl={getPersonImage}
       >
         <Record field='name' label='Name: ' />

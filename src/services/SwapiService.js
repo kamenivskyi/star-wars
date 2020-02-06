@@ -15,7 +15,7 @@ class SwapiService {
     return people.results.map(this._transformPerson);
   };
 
-  getPersonById = async id => {
+  getPerson = async id => {
     const person = await this.getResource(`/people/${id}/`);
     return this._transformPerson(person);
   };
@@ -25,7 +25,7 @@ class SwapiService {
     return planets.results.map(this._transformPlanet);
   };
 
-  getPlanetById = async id => {
+  getPlanet = async id => {
     const planet = await this.getResource(`/planets/${id}/`);
     return this._transformPlanet(planet);
   };
@@ -35,7 +35,7 @@ class SwapiService {
     return starships.results.map(this._transformStarship);
   };
 
-  getStarshipById = async id => {
+  getStarship = async id => {
     const starship = await this.getResource(`/starships/${id}/`);
     return this._transformStarship(starship);
   };

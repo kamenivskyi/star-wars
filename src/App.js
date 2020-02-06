@@ -27,14 +27,6 @@ class App extends Component {
   service = new SwapiService();
 
   render() {
-    const {
-      getPersonById,
-      getStarshipById,
-      getStarshipImage,
-      getPersonImage,
-      getAllPeople
-    } = this.service;
-
     return (
       <ErrorBoundry>
         <SwapiServiceProvider value={this.service}>
@@ -56,7 +48,7 @@ class App extends Component {
 
               <Row
                 left={<StarshipList />}
-                right={<StarshipDetails itemId={3} />}
+                right={<StarshipDetails itemId={9} />}
               />
             </div>
           </div>
